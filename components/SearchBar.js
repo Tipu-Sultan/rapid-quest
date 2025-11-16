@@ -1,4 +1,3 @@
-// components/SearchBar.js
 "use client";
 import { useState } from "react";
 
@@ -6,8 +5,16 @@ export default function SearchBar({ onSearch }) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("all");
 
+  // This function is used when the main search button is clicked or Enter is pressed.
   const handleSearch = () => {
     onSearch(query.trim(), filter);
+  };
+
+  // New handler: Sets the filter and immediately executes the search.
+  const handleFilterClick = (newFilter) => {
+    setFilter(newFilter);
+    // Execute search with the CURRENT query and the NEW filter value
+    onSearch(query.trim(), newFilter);
   };
 
   return (
@@ -18,11 +25,15 @@ export default function SearchBar({ onSearch }) {
             <input
               type="text"
               placeholder="Search campaigns, assets, PDFs, images..."
-              className="w-full px-5 py-4 pl-12 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-shadow placeholder-gray-500"
+              className="w-full px-5 py-4 pl-12 text-lg border border-gray-300 rounded-xl 
+             text-gray-500 placeholder-gray-500
+             focus:outline-none focus:ring-2 focus:ring-blue-500 
+             focus:border-transparent transition-shadow"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             />
+
             <svg
               className="absolute left-4 top-5 h-5 w-5 text-gray-400"
               fill="none"
@@ -48,7 +59,7 @@ export default function SearchBar({ onSearch }) {
         <div className="mt-5 flex flex-wrap gap-2">
           <FilterButton
             active={filter === "all"}
-            onClick={() => setFilter("all")}
+            onClick={() => handleFilterClick("all")}
           >
             All
           </FilterButton>
@@ -56,20 +67,20 @@ export default function SearchBar({ onSearch }) {
           {/* Category Filters */}
           <FilterButton
             active={filter === "General→General"}
-            onClick={() => setFilter("General→General")}
+            onClick={() => handleFilterClick("General→General")}
           >
             General → General
           </FilterButton>
 
           <FilterButton
             active={filter === "Design→Brand"}
-            onClick={() => setFilter("Design→Brand")}
+            onClick={() => handleFilterClick("Design→Brand")}
           >
             Design → Brand
           </FilterButton>
           <FilterButton
             active={filter === "Content→Social"}
-            onClick={() => setFilter("Content→Social")}
+            onClick={() => handleFilterClick("Content→Social")}
           >
             Content → Social
           </FilterButton>
@@ -77,19 +88,19 @@ export default function SearchBar({ onSearch }) {
           {/* Topic Filters */}
           <FilterButton
             active={filter === "topic-AI"}
-            onClick={() => setFilter("topic-AI")}
+            onClick={() => handleFilterClick("topic-AI")}
           >
             AI
           </FilterButton>
           <FilterButton
             active={filter === "topic-SEO"}
-            onClick={() => setFilter("topic-SEO")}
+            onClick={() => handleFilterClick("topic-SEO")}
           >
             SEO
           </FilterButton>
           <FilterButton
             active={filter === "topic-Growth"}
-            onClick={() => setFilter("topic-Growth")}
+            onClick={() => handleFilterClick("topic-Growth")}
           >
             Growth
           </FilterButton>
