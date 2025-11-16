@@ -1,4 +1,3 @@
-// app/api/upload/route.js
 import { NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 import connectDB from '@/lib/mongodb';
@@ -23,20 +22,23 @@ export async function POST(req) {
     const base64 = buffer.toString('base64');
     const dataUri = `data:${file.type};base64,${base64}`;
 
-    // Auto-convert DOCX to PDF for better preview
+    // --- MODIFICATION 1: Removed the Aspose conversion logic ---
+    // Now, all files (including DOC/DOCX) will be uploaded using 'auto'
+    // which handles them as 'raw' files without any special add-on processing.
     const uploadOptions = {
       upload_preset: 'marketing_assets',
-      resource_type: 'auto',
-      ...(file.type.includes('word') && { raw_convert: 'aspose' }), // DOCX → PDF
+      resource_type: 'auto', // Cloudinary will automatically determine the resource type (e.g., 'raw' for DOC/DOCX)
     };
 
     const uploadRes = await cloudinary.uploader.upload(dataUri, uploadOptions);
 
-    // Use PDF URL if converted
-    const finalUrl = uploadOptions.raw_convert ? `${uploadRes.secure_url}.pdf` : uploadRes.secure_url;
+    // --- MODIFICATION 2: Simplified the final URL ---
+    // Since we are no longer converting to PDF, the final URL is simply the secure URL.
+    const finalUrl = uploadRes.secure_url;
 
     let content = '';
     try {
+      // The extraction logic needs to handle the original file type
       content = await extractText(finalUrl, file.type);
     } catch (err) {
       console.warn('Extraction failed, using filename');
@@ -48,7 +50,9 @@ export async function POST(req) {
       filename: uploadRes.public_id,
       originalName: file.name,
       path: finalUrl,
-      mimetype: file.type.includes('word') ? 'application/pdf' : file.type, // PDF for previews
+      // --- MODIFICATION 3: Use the original file's MIME type ---
+      // This ensures the browser handles the file correctly for download.
+      mimetype: file.type,
       size: file.size,
       content,
       category: `${team} → ${project}`,
