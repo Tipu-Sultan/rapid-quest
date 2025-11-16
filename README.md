@@ -1,6 +1,6 @@
 # Marketing Search Tool
 
-**AI-Powered Internal Search for Marketing Assets**  
+**Internal Search for Marketing Assets**  
 *OCR • Auto-Categorization • Full-Text Search • Preview • Manage*
 
 **Live Demo**: [https://your-app.vercel.app](https://your-app.vercel.app)  
@@ -39,6 +39,50 @@
 ---
 
 ## Setup Instructions
+Create a Cloudinary Account
+
+Visit https://cloudinary.com
+
+Copy your:
+Cloud Name
+API Key
+API Secret
+
+Create an Upload Preset named: marketing_assets
+
+
+3. Create .env.local File
+Create a file named .env.local in the project root:
+MONGODB_URI=mongodb://127.0.0.1:27017/marketing_search
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+CLOUDINARY_UPLOAD_PRESET=marketing_assets
+
+4. Start Development Server
+npm run dev
+
+Open in browser:
+http://localhost:3000
+
+5. Build for Production
+npm run build
+npm start
+
+
+---
+
+### 🔍 **Why it was empty earlier?**
+When code blocks inside Markdown contain triple backticks, ChatGPT sometimes auto-closes them or escapes them incorrectly, causing GitHub/VS Code to hide the heading.
+
+This version is **fully corrected**, properly escaped, and will **not break**.
+
+---
+
+If you want, I can now add this into a **complete README.md** without errors.
+
+
 
 ### 1. Clone & Install
 
