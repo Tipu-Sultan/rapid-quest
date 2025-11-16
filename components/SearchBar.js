@@ -12,8 +12,8 @@ export default function SearchBar({ onSearch }) {
 
   // New handler: Sets the filter and immediately executes the search.
   const handleFilterClick = (newFilter) => {
+    if (newFilter === filter) return; // ⛔ prevent duplicate API calls
     setFilter(newFilter);
-    // Execute search with the CURRENT query and the NEW filter value
     onSearch(query.trim(), newFilter);
   };
 
@@ -113,14 +113,16 @@ export default function SearchBar({ onSearch }) {
 function FilterButton({ children, active, onClick }) {
   return (
     <button
-      onClick={onClick}
-      className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-        active
-          ? "bg-blue-600 text-white shadow-sm"
+      onClick={!active ? onClick : undefined}  
+      disabled={active}                         
+      className={`px-4 py-2 rounded-full text-sm font-medium transition-all 
+        ${active
+          ? "bg-blue-600 text-white shadow-sm cursor-not-allowed"
           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-      }`}
+        }`}
     >
       {children}
     </button>
   );
 }
+
