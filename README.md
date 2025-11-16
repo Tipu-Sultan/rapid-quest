@@ -3,8 +3,8 @@
 **Internal Search for Marketing Assets**  
 *OCR • Auto-Categorization • Full-Text Search • Preview • Manage*
 
-**Live Demo**: [https://your-app.vercel.app](https://your-app.vercel.app)  
-**Built by**: [@Pathan_Sultan07](https://x.com/Pathan_Sultan07)  
+**Live Demo**: [https://rapidquest-kappa.vercel.app/](https://rapidquest-kappa.vercel.app/)  
+**Built by**: [tipu-sultan](https://www.linkedin.com/in/tipu-sultan-47b4221b4/)  
 **Tech Stack**: `Next.js 15 (App Router)` • `MongoDB` • `Tesseract.js` • `Cloudinary` • `Tailwind CSS`
 
 ---
@@ -34,7 +34,6 @@
 | Text Extraction | `pdf-parse`, `mammoth` |
 | Styling | Tailwind CSS |
 | Deployment | Vercel |
-| Preview | `@cyntler/react-doc-viewer` |
 
 ---
 
